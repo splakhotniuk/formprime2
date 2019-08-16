@@ -2,8 +2,7 @@ import React from 'react';
 import 'primereact/resources/themes/nova-light/theme.css';
 import 'primereact/resources/primereact.min.css';
 import 'primeicons/primeicons.css';
-import 'primeflex/primeflex.css'
-import { BrowserRouter as Router, Route } from "react-router-dom";
+import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import { StartPage } from "./StartPage"
 import { InputClient } from "./InputClient.jsx"
 import { ClientList } from "./ClientList.jsx"

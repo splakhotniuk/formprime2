@@ -11,3 +11,9 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
+
+.validate {
+  -webkit-text-fill-color: rgb(95, 3, 3)
+}
+
+
