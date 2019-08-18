@@ -11,6 +11,7 @@ export const InputWithCheck = (props) => {
             [e.target.name] : !props.data[e.target.name]
         });
     }
+                                                            
 
     const renderInput = () => {
         if ( !isChecked ) {
@@ -21,15 +22,13 @@ export const InputWithCheck = (props) => {
                         setData={props.setData} 
                         partData={props.couple[0]} 
                         isReqNextPage={props.isReqNextPage}
-                        setIsReqNextPage={props.setIsReqNextPage}
-                        isNextPagePossible={props.isNextPagePossible}
-                        setIsNextPagePossible={props.setIsNextPagePossible}
+                        wasReqNextPage={props.wasReqNextPage}
                     />
                 </div>
             )
         }
         props.data[props.couple[0][0]] = "";
-        props.setIsNextPagePossible(true);
+        
         return null;
     }
 

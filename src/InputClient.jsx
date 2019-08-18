@@ -25,54 +25,62 @@ export const InputClient = () => {
       });
 
     const [pageNumber, setPageNumber] = useState(0);
-    const[isNextPagePossible, setIsNextPagePossible] = useState(false);
-    const[isReqNextPage, setIsReqNextPage] = useState(false);
+    const [isReqNextPage, setIsReqNextPage] = useState(false);
+    const [wasReqNextPage, setWasReqNextPage ] = useState(false);
+    const [isReqPrevPage, setIsReqPrevPage] = useState(false)
+    
+    const page = inputPage[pageNumber];
+    
+    if ( isReqNextPage && pageNumber < 4 ) {
+        const controlInputArray = page.map(partData => (
+            typeof partData[0] === 'object' ? data[partData[0][0][0]] || data[partData[0][1][0]] : data[partData[0]]
+        ));
+        
+        setWasReqNextPage(true);
+
+        if ( !controlInputArray.some(elem => !elem)) {
+            setIsReqNextPage(false);
+            setWasReqNextPage(false);
+            setPageNumber(pageNumber+1);
+        } else {
+            setIsReqNextPage(false);
+        }
+    }
+    if ( isReqPrevPage && pageNumber > 0 ) {
+        setIsReqNextPage(false);
+        setWasReqNextPage(false);
+        setIsReqPrevPage(false);
+        setPageNumber(pageNumber-1);
+    }
 
     const renderPage = () => {
         if ( pageNumber === 4 ) {
             return (
                 <div>
-                    <AllData data={data} setData={setData}/>
+                    <AllData data={data}/>
                 </div> 
             )
         }
         return (
             <div className="container">
                 {
-                    inputPage[pageNumber].map(partData => <SingleInput 
-                                                            data={data} 
-                                                            setData={setData} 
-                                                            partData={partData} 
-                                                            isReqNextPage={isReqNextPage}
-                                                            setIsReqNextPage={setIsReqNextPage}
-                                                            isNextPagePossible={isNextPagePossible}
-                                                            setIsNextPagePossible={setIsNextPagePossible} 
-                                                            key={partData[0]}
-                                                        />)
+                    page.map(partData => <SingleInput 
+                                                    data={data} 
+                                                    setData={setData} 
+                                                    partData={partData} 
+                                                    wasReqNextPage={wasReqNextPage}
+                                                    key={partData[0]}
+                                                    />)
                 }
             </div>
         )
     }
 
-    const resetPageState = () => {
-        setIsNextPagePossible(false);
-        setIsReqNextPage(false);
-    }
-
-    useEffect(resetPageState, [pageNumber]);
-
     return (
         <div>
-            {console.log(data)}
+            
             {renderPage()}
-            <NavigationButtons 
-                pageNumber={pageNumber} 
-                setPageNumber={setPageNumber} 
-                isNextPagePossible = {isNextPagePossible} 
-                setIsNextPagePossible = {setIsNextPagePossible}
-                isReqNextPage = {isReqNextPage}
-                setIsReqNextPage = {setIsReqNextPage}
-            />
+            <NavigationButtons setIsReqNextPage = {setIsReqNextPage} setIsReqPrevPage={setIsReqPrevPage}/>
         </div>
     );
 };

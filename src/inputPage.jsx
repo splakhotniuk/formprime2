@@ -17,10 +17,13 @@ const inputPage = [
         
     ],
     [
-        ["regAddress", "Адреса реєстрації", "InputText"],
+        ["regAddress", "Адреса реєстрації", "InputTextarea"],
         [ [ ["localAddress", "Фактична адреса",  "InputText"], 
             ["isLiveRegAddress", "Проживає за місцем реєстрації", "Checkbox"] ], "Фактича адреса", "inputWithCheck"]
     ]
 ]
+
+
+
 
 export default inputPage;
