@@ -1,5 +1,5 @@
 import React from 'react';
-import {useState, useEffect} from 'react';
+import {useState} from 'react';
 import { NavigationButtons } from "./NavigationButtons";
 import { AllData } from "./AllData";
 import { SingleInput } from "./SingleInput"
@@ -62,7 +62,7 @@ export const InputClient = () => {
             )
         }
         return (
-            <div className="container">
+            <div >
                 {
                     page.map(partData => <SingleInput 
                                                     data={data} 
@@ -77,7 +77,7 @@ export const InputClient = () => {
     }
 
     return (
-        <div>
+        <div className="container">
             
             {renderPage()}
             <NavigationButtons setIsReqNextPage = {setIsReqNextPage} setIsReqPrevPage={setIsReqPrevPage}/>

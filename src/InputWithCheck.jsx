@@ -11,7 +11,6 @@ export const InputWithCheck = (props) => {
             [e.target.name] : !props.data[e.target.name]
         });
     }
-                                                            
 
     const renderInput = () => {
         if ( !isChecked ) {
@@ -55,21 +54,4 @@ export const InputWithCheck = (props) => {
                 {renderInput()}
         </div>
     )
-    
-   
-        // if ( !isChecked ) {
-        //     return (
-        //         <div>
-        //             <h1> Две строки</h1>
-        //         </div>
-        //     )
-        // }
-        // return (
-        //     <div>
-        //             <h1> Одна строка </h1>
-        //         </div>
-        // )
-   
-    
-   
 };

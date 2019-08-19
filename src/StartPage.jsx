@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import {Button} from 'primereact/button';
 
 
-export const StartPage = (props) => {
+export const StartPage = () => {
     return (
     <div >
         <h1>Ви бажаєте:</h1>

@@ -16,4 +16,17 @@ code {
   -webkit-text-fill-color: rgb(95, 3, 3)
 }
 
+.container {
+  border: 4px double blue;
+  margin-inline: 100px;
+}
 
+p {
+  font-weight: bold;
+}
+
+@media (min-width: 1200px) {
+  .container {
+    width: 1200px;
+  }
+}

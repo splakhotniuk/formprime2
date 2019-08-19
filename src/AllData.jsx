@@ -2,25 +2,9 @@ import React from 'react';
 import { Link } from "react-router-dom";
 import {Button} from 'primereact/button';
 import axios from 'axios'
-import {Fieldset} from 'primereact/fieldset';
+import dataRow from './dataRow';
 
 export const AllData = (props) => {
-   console.log("IN OLLLLLLLDATAAAAAAAAAAAAAAAAAA PROPSES", props.data)
-   const dataRow = {
-                    surname: "Прізвище",
-                    name: "Ім'я",
-                    patronymic: "По батькові", 
-                    birthday: "Дата народження",
-                    gender: "Стать", 
-                    passportSeries: "Паспорт серія", 
-                    passportNumber: "Паспорт номер", 
-                    passportIssuer: "Ким видаий", 
-                    passportDate: "Дата видачі",
-                    ipn: "ІПН",
-                    regAddress: "Адреса реєстрації", 
-                    localAddress: "Фактична адреса"
-    }
-
     return (
         <div>
             <div>
@@ -30,7 +14,7 @@ export const AllData = (props) => {
                             <div className="p-grid  p-justify-end">
                                 <div className="p-grid  ">
                                     <div className="p-col">
-                                        <p>{`${dataRow[key]}: `}</p>
+                                        <span>{`${dataRow[key]}: `}</span>
                                     </div>
                                 </div>
                             </div>

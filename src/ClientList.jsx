@@ -1,28 +1,17 @@
 import React from 'react';
 import {useState, useEffect} from 'react'
+import { Link } from "react-router-dom";
 import axios from 'axios'
 import {DataTable} from 'primereact/datatable';
 import {Column} from 'primereact/column';
+import {Button} from 'primereact/button';
+import dataRow from './dataRow';
 
 export const ClientList = (props) => {
     console.log("Пропсы List", props);
   const [data, setData] = useState([]);
   const [expandedRows, setExpandedRows] = useState(null);
-  const dataRow = {
-                    surname: "Прізвище",
-                    name: "Ім'я",
-                    patronymic: "По батькові", 
-                    birthday: "Дата народження",
-                    gender: "Стать", 
-                    passportSeries: "Паспорт серія", 
-                    passportNumber: "Паспорт номер", 
-                    passportIssuer: "Ким видаий", 
-                    passportDate: "Дата видачі",
-                    ipn: "ІПН",
-                    regAddress: "Адреса реєстрації", 
-                    localAddress: "Фактична адреса"
-  }
-
+  
   const fetchData = () => {
       axios.get("/api/questionary")
             .then(
@@ -44,12 +33,12 @@ export const ClientList = (props) => {
                     <div className="p-grid">
                         {
                             Object.keys(dataRow).map(key => (
-                                <>
-                                
-                                    <div className="p-sm-2">{`${dataRow[key]}: `}</div>
-                                    <div className="p-sm-10" style={{fontWeight:'bold'}}>{`${data[key]}`}</div>
-                                
-                                </>
+                                <div className="p-col-12" key={key}>
+                                    <div className="p-grid">
+                                        <div className="p-sm-2">{`${dataRow[key]}: `}</div>
+                                        <div className="p-sm-10" style={{fontWeight:'bold'}}>{`${data[key]}`}</div>
+                                    </div>
+                                </div>
                             ))
                         }
                     </div>
@@ -68,6 +57,10 @@ export const ClientList = (props) => {
                     <Column field="name" header="Імя" />
                     <Column field="patronymic" header="По батькові" />
                 </DataTable>
+            </div>
+            <div className="p-col-12"></div>
+            <div>
+                <Link to="/"><Button label="<-- На стартову сторінку" className="p-button-secondary"/></Link>
             </div>
         </div>
     );

@@ -14,7 +14,7 @@ export const SingleInput = (props) => {
         var correctValue = e.target.value;
 
         if (component === "Calendar") {
-            correctValue = correctValue.getDate() + "." + correctValue.getMonth() + "." + correctValue.getFullYear();
+            correctValue = correctValue.toLocaleString("ua", {year: 'numeric', month: 'numeric', day: 'numeric'});
         }
         if (component === "Dropdown") {
             correctValue = `${correctValue.option}`;
@@ -27,10 +27,6 @@ export const SingleInput = (props) => {
     };
 
     const attributes = {className: "", name: props.partData[0], onChange: handleInput, value: props.data[props.partData[0]]};
-
-    if (component === "Dropdown") {
-        attributes.value = {option: props.data[props.partData[0]]};
-    }
 
     if ( props.wasReqNextPage ) {
         if ( !attributes.value ) {
@@ -50,16 +46,22 @@ export const SingleInput = (props) => {
         return null;
     }
 
-    if ( component === "InputText" || component === "InputTextarea")  {
+    if ( component === "InputText")  {
         inputComponent = <InputText {...attributes}/>
     }
     if ( component === "InputTextarea")  {
         inputComponent = <InputTextarea {...attributes} autoResize={true}/>
     }
     if ( component === "Calendar" )  {
+        if ( attributes.value ) {
+            var dateString = props.data[props.partData[0]];
+            attributes.value = new Date(dateString.substr(7, 4), dateString.substr(4, 2), dateString.substr(1, 2));
+        }
+
         inputComponent = <Calendar {...attributes} dateFormat="dd/mm/yy" monthNavigator={true} yearNavigator={true} yearRange="1900:2020" />
     }
     if ( component === "Dropdown" )  {
+        attributes.value = {option: props.data[props.partData[0]]};
         inputComponent = <Dropdown {...attributes} options={props.partData[3]} optionLabel="option"/>
     }
     if ( component === "inputWithCheck") {
@@ -76,21 +78,23 @@ export const SingleInput = (props) => {
     return (
         <div >
             <div className="p-grid p-fluid">
+                <div className="p-col-1"></div>
                 <div className="p-col-3">
                     <div className="p-grid  p-justify-end">
                         <div className="p-grid  ">
                             <div className="p-col">
-                                <h4 >{props.partData[1]}</h4>
+                                <p >{props.partData[1]}</p>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div className="p-col-8">
+                <div className="p-col-7">
                     <div className="p-col">
                         {inputComponent}
                         {validateMassege()}
                     </div>
                 </div>
+                <div className="p-col-1"></div>
             </div>
         </div>
     );
