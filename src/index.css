@@ -13,7 +13,7 @@ code {
 }
 
 .validate {
-  -webkit-text-fill-color: rgb(95, 3, 3)
+  -webkit-text-fill-color: rgb(95, 3, 3);
 }
 
 .container {
@@ -29,4 +29,9 @@ p {
   .container {
     width: 1200px;
   }
+}
+
+.warning {
+  -webkit-text-fill-color: rgb(194, 9, 9);
+  font-weight: bold;
 }

@@ -1,35 +1,39 @@
 import React from 'react';
-import {useState} from 'react';
+import {useState, useContext} from 'react';
 import { NavigationButtons } from "./NavigationButtons";
 import { AllData } from "./AllData";
-import { SingleInput } from "./SingleInput"
-import inputPage from "./inputPage"
+import { SingleInput } from "./SingleInput";
+import inputPage from "./inputPage";
+import {DataContext} from "./inputDataContext";
 
 export const InputClient = () => {
-    
-    const [data, setData] = useState({
-        surname: "",
-        name: "",
-        patronymic: "", 
-        birthday: "", 
-        gender: "", 
-        passportSeries: "",
-        passportNumber: "", 
-        passportIssuer: "", 
-        passportDate: "", 
-        ipn: "", 
-        noIpn: false, 
-        regAddress: "", 
-        localAddress: "", 
-        isLiveRegAddress: false
-      });
-
+    console.log("КОНТЕКСТ :::::::::::::", DataContext);
+    const _dataContext = useContext(DataContext);
+    const dataContext = _dataContext();
+    const [data, setData] = useState(dataContext);
     const [pageNumber, setPageNumber] = useState(0);
     const [isReqNextPage, setIsReqNextPage] = useState(false);
     const [wasReqNextPage, setWasReqNextPage ] = useState(false);
-    const [isReqPrevPage, setIsReqPrevPage] = useState(false)
+    const [isReqPrevPage, setIsReqPrevPage] = useState(false);
     
     const page = inputPage[pageNumber];
+    var changeMessage = "";
+
+    if ( data._id ) {
+        var isNeedChangMessage = true;
+        changeMessage = `Заміна даних клієнта: ${dataContext.surname} ${dataContext.name} ${dataContext.patronymic}`
+        console.log(`Заміна даних клієнта: ${changeMessage}`)
+    }
+
+    const renderChangeMessage = () => {
+        if ( isNeedChangMessage ) {
+            return (
+                <div className="warning p-col-12">
+                    <span>{changeMessage}</span>
+                </div>
+            )
+        }
+    }
     
     if ( isReqNextPage && pageNumber < 4 ) {
         const controlInputArray = page.map(partData => (
@@ -57,7 +61,7 @@ export const InputClient = () => {
         if ( pageNumber === 4 ) {
             return (
                 <div>
-                    <AllData data={data}/>
+                    <AllData data={data} setPageNumber={setPageNumber} changeMessage={changeMessage}/>
                 </div> 
             )
         }
@@ -78,7 +82,8 @@ export const InputClient = () => {
 
     return (
         <div className="container">
-            
+            {renderChangeMessage()}
+            {console.log("DATA::::::::::::::::::::", data)}
             {renderPage()}
             <NavigationButtons setIsReqNextPage = {setIsReqNextPage} setIsReqPrevPage={setIsReqPrevPage}/>
         </div>

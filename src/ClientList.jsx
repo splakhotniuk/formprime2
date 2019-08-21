@@ -1,31 +1,32 @@
 import React from 'react';
-import {useState, useEffect} from 'react'
+import {useState, useEffect, useContext} from 'react'
 import { Link } from "react-router-dom";
 import axios from 'axios'
 import {DataTable} from 'primereact/datatable';
 import {Column} from 'primereact/column';
 import {Button} from 'primereact/button';
 import dataRow from './dataRow';
+import {DataContext} from "./inputDataContext";
 
 export const ClientList = (props) => {
     console.log("Пропсы List", props);
   const [data, setData] = useState([]);
   const [expandedRows, setExpandedRows] = useState(null);
-  
+  const dataContext = useContext(DataContext);
+
   const fetchData = () => {
-      axios.get("/api/questionary")
-            .then(
-                (serverData) => {
-                    console.log(`Server data = ${JSON.stringify(serverData.data)}`);
-                    setData(serverData.data);
-                }
-            )
-  }
+        axios.get("/api/questionary")
+                .then(
+                    (serverData) => {
+                        console.log(`Server data = ${JSON.stringify(serverData.data)}`);
+                        setData(serverData.data);
+                    }
+                )
+    }
 
   useEffect(fetchData, [])
 
   const rowExpansionTemplate = (data) => {
-      
       return (
         <div>
             <div className="p-grid p-fluid" style={{padding: '2em 1em 1em 1em'}}>
@@ -44,6 +45,15 @@ export const ClientList = (props) => {
                     </div>
                 </div>
             </div>
+            <Link to="/inputclient"><Button label="Змінити дані" className="p-button-warning" onClick={() => dataContext(data)}/></Link>
+            <Button label="Видалити дані" className="p-button-danger" onClick={() => {
+                axios.delete(`/api/questionary/${data._id}`)
+                .then( 
+                    (response) => {
+                        console.log("Removed from server ", response);
+
+                    }
+                );}}/>
         </div>
     );
   }
