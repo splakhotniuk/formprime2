@@ -1,3 +1,6 @@
+/**
+ * this is array of teplates for every input page
+ */
 const inputPage = [
     [
         ["surname", "Прізвище", "InputText"], 

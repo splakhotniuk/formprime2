@@ -1,3 +1,8 @@
+/**
+ * This is the beginning of application
+ * Contains a router
+ * By default opens start page
+ */
 import React from 'react';
 import 'primereact/resources/themes/nova-light/theme.css';
 import 'primereact/resources/primereact.min.css';

@@ -1,3 +1,6 @@
+/**
+ * This component renders input fields with correct attributes
+ */
 import React from 'react';
 import {InputText} from 'primereact/inputtext';
 import {Calendar} from 'primereact/calendar';
@@ -14,7 +17,7 @@ export const SingleInput = (props) => {
         var correctValue = e.target.value;
 
         if (component === "Calendar") {
-            correctValue = correctValue.toLocaleString("ua", {year: 'numeric', month: 'numeric', day: 'numeric'});
+            correctValue = correctValue.toLocaleString("ru", {year: 'numeric', month: 'numeric', day: 'numeric'});
         }
         if (component === "Dropdown") {
             correctValue = `${correctValue.option}`;
@@ -27,7 +30,9 @@ export const SingleInput = (props) => {
     };
 
     const attributes = {className: "", name: props.partData[0], onChange: handleInput, value: props.data[props.partData[0]]};
-
+    /**
+     * Check if input has value before coming to next page
+     */
     if ( props.wasReqNextPage ) {
         if ( !attributes.value ) {
             attributes.className =  "p-error";
@@ -55,7 +60,7 @@ export const SingleInput = (props) => {
     if ( component === "Calendar" )  {
         if ( attributes.value ) {
             var dateString = props.data[props.partData[0]];
-            attributes.value = new Date(dateString.substr(7, 4), dateString.substr(4, 2), dateString.substr(1, 2));
+            attributes.value = new Date(dateString.substr(6, 4), dateString.substr(3, 2)-1, dateString.substr(0, 2));
         }
 
         inputComponent = <Calendar {...attributes} dateFormat="dd/mm/yy" monthNavigator={true} yearNavigator={true} yearRange="1900:2020" />
@@ -65,6 +70,10 @@ export const SingleInput = (props) => {
         inputComponent = <Dropdown {...attributes} options={props.partData[3]} optionLabel="option"/>
     }
     if ( component === "inputWithCheck") {
+        /**
+         * Input with checkbox is own component
+         * In all other cases we use PrimeReact components
+         */
         return (
             <InputWithCheck 
                 couple={props.partData[0]} 

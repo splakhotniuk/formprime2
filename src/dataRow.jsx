@@ -1,4 +1,6 @@
-
+/**
+ * Object for correct output data
+ */
 const dataRow = {
     surname: "Прізвище",
     name: "Ім'я",
